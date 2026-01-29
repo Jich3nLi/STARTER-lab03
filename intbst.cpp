@@ -159,24 +159,23 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
     }
 
     Node* curr = getNodeFor(value, root);
-    Node* predecessor = curr;
 
     if (curr == nullptr) {
         return nullptr;
     }
 
     if (curr -> left != nullptr) {
-        predecessor = predecessor -> left;
-        while (predecessor -> right != nullptr) {
-            predecessor = predecessor -> right;
+        curr = curr -> left;
+        while (curr -> right != nullptr) {
+            curr = curr -> right;
         }
-        return predecessor;
+        return curr;
     } else {
-        while (predecessor -> parent != nullptr && predecessor -> parent -> left == predecessor) {
-            predecessor = predecessor -> parent;
+        while (curr -> parent != nullptr && curr -> parent -> left == curr) {
+            curr = curr -> parent;
         }
-        predecessor = predecessor -> parent;
-        return predecessor;
+        curr = curr -> parent;
+        return curr;
     }
     return nullptr;
 }
@@ -197,24 +196,23 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
     }
 
     Node* curr = getNodeFor(value, root);
-    Node* successor = curr;
 
     if (curr == nullptr) {
         return nullptr;
     }
     
     if (curr -> right != nullptr) {
-        successor = successor -> right;
-        while (successor -> left != nullptr) {
-            successor = successor -> left;
+        curr = curr -> right;
+        while (curr -> left != nullptr) {
+            curr = curr -> left;
         }
-        return successor;
+        return curr;
     } else {
-        while (successor -> parent != nullptr && successor -> parent -> right == successor) {
-            successor = successor -> parent;
+        while (curr -> parent != nullptr && curr -> parent -> right == curr) {
+            curr = curr -> parent;
         } 
-        successor = successor -> parent;
-        return successor;
+        curr = curr -> parent;
+        return curr;
     }
     return nullptr;
 }
@@ -245,7 +243,7 @@ bool IntBST::remove(int value){
         nodeToDelete = successor; 
     }
     // Case 2: Delete node with one or zero child
-    Node* child= nullptr;
+    Node* child = nullptr;
     if (nodeToDelete -> left != nullptr) {
         child = nodeToDelete -> left;
     } else {
