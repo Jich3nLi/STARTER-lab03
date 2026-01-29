@@ -252,6 +252,9 @@ bool IntBST::remove(int value){
 
     if (nodeToDelete -> parent == nullptr) {
         root = child;
+        if (child != nullptr) {
+            child->parent = nullptr;
+        }
         delete nodeToDelete;
         return true;
     } else if (nodeToDelete == nodeToDelete -> parent -> left) {
